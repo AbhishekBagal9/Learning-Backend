@@ -1,0 +1,24 @@
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/navbar') %>
+
+<div class="welmsg w-[600px] min-h-[200px] flex justify-center items-center font-extrabold text-2xl ml-auto mr-auto shadow-xl">
+    <div class="text-center">
+        <h1>Welcome to Airnbn</h1>
+        <ul class="mt-4">
+            <!-- <% if(registeredHomes && registeredHomes.length > 0) { %> -->
+                <% registeredHomes.forEach(home => { %>
+                    <li class="my-2">
+                        <%= home.houseName %>
+                    </li>
+                <% }) %>
+            <!-- <% } else { %>
+                <li>No homes registered yet</li>
+            <% } %> -->
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
