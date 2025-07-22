@@ -6,7 +6,7 @@ const {registeredHomes} = require('./Addhome'); // Import registeredHomes from A
 const HomeRouter = express.Router();
 
 HomeRouter.get('/', (req, res) => {
-  res.render('home', {registeredHomes : registeredHomes} );  // Render the EJS template as HTML
+  res.render('home', {registeredHomes : registeredHomes , pageTitle : 'Airnbnb'} );  // Render the EJS template as HTML
 });
 
 
