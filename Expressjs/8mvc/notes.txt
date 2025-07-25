@@ -1,0 +1,7 @@
+so mvc means model view controller
+
+so here we learn how the model handle -- logic and interact with database
+
+controller handels the request and and show view pages
+
+view will be shown by the controller based on  request...
