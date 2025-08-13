@@ -3,9 +3,9 @@ const Bookings = require('../models/bookings');
 const Favourite = require('../models/favourites');
 
 exports.getHomes = (req, res) => {
-Home.fetchAll((homes)=>{
- res.render('store/home-list', {registeredHomes : homes , pageTitle : 'Airnbnb'} ); 
-}); // Fetch all registered homes
+Home.fetchAll().then(([registerHomes])=>{
+ res.render('store/home-list', {registeredHomes : registerHomes , pageTitle : 'Airnbnb'} ); 
+}) // Fetch all registered homes
   // Render the EJS template as HTML
 }
 
@@ -20,21 +20,25 @@ exports.getBookings = (req, res) => {
   // Render the EJS template as HTML
 
 
-
 exports.getFavourites = (req, res) => {
-Favourite.getFavourites(favouritesId => {
-Home.fetchAll((homes)=>{
-  const findFavourite = homes.filter((home)=>favouritesId.includes(home.id))
- res.render('store/favourite-list', {registeredHomes : findFavourite, pageTitle : 'Favourites'} ); 
-}); // Fetch all registered homes
-  // Render the EJS template as HTML
-})
-}
+  Favourite.getFavourites((favouritesId) => {
+    Home.fetchAll().then(([registerHomes]) => {
+      const findFavourite = registerHomes.filter(home => favouritesId.includes(home.id));
+        res.render('store/favourite-list', {
+        registeredHomes: findFavourite,
+        pageTitle: 'Favourites'
+      });
+    })
+  });
+};
+
+
 
 
 exports.getHomeDetails = (req, res) => {
   const homeId = req.params.homeId; // Get the homeId from the URL parameters
-  Home.fetchById(homeId, (home) => {
+  Home.fetchById(homeId).then(([homes]) => {
+      const home = homes[0]; // in our db we have [[{}],[{}]] arr then obj so there can multiple obj so we use [0]
     if (!home) {
       return res.status(404).render('404', { pageTitle: 'Home Not Found' }); // Render a 404 page if home not found
     }else{

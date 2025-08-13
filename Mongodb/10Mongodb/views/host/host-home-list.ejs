@@ -1,0 +1,76 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-white text-gray-800 min-h-screen">
+  <%- include('../partials/navbar') %>
+
+  <div class="max-w-7xl mx-auto mt-16 px-4 sm:px-8 pb-16">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500">
+        🏡 Welcome to host home list
+      </h1>
+      <p class="text-gray-500 mt-2 text-lg">Find your perfect stay listed below</p>
+    </div>
+
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 list-none">
+      <% registeredHomes.forEach((home) => { %>
+        <li class="flex flex-col bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden border border-gray-100">
+          <!-- Image -->
+          <div class="h-52 w-full overflow-hidden">
+            <img src="<%= home.imageUrl %>" alt="Home image" class="w-full h-full object-cover" />
+          </div>
+
+          <!-- Content -->
+          <div class="p-6 flex flex-col gap-3 flex-grow">
+            <h2 class="text-2xl font-bold text-indigo-600 flex items-center gap-2">
+              🏠 <%= home.addhome %>
+            </h2>
+
+            <p class="text-gray-700 text-base">
+              💰 <span class="font-medium">Price:</span> ₹<%= home.price %>
+            </p>
+
+            <p class="text-gray-700 text-base">
+              📍 <span class="font-medium">Location:</span> <%= home.location %>
+            </p>
+
+            <!-- Rating -->
+            <div class="flex items-center text-yellow-500 text-lg mt-2">
+              <% 
+                const rating = Number(home.rating) || 0;
+                const fullStars = Math.floor(rating);
+                const emptyStars = 5 - fullStars;
+              %>
+
+              <% for(let i = 0; i < fullStars; i++) { %>
+                <span>★</span>
+              <% } %>
+              <% for(let i = 0; i < emptyStars; i++) { %>
+                <span>☆</span>
+              <% } %>
+
+              <span class="ml-2 text-gray-700 text-base font-medium "><%= rating.toFixed(1) %>/5</span>
+        
+
+            </div>
+            <!-- <p>
+           <button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Book</button></p> -->
+           <p><a href="/edit-home/<%=home._id%>?editing=true" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 cursor-pointer">Edit</a></p>
+          </div>
+
+          
+    <form action="/host-home-list/delete" method="POST">
+    <input type="hidden" name="homeId" value="<%= home._id %>">
+    <button class="px-4 py-2 bg-orange-900 hover:bg-red-800 text-black rounded-lg">
+      Delete
+    </button>
+  </form>
+           
+        </li>
+      <% }) %>
+      
+    </ul>
+  </div>
+
+</body>
+</html>
+

@@ -16,8 +16,8 @@
 
         <div>
           <label for="homename" class="block text-gray-700 font-medium mb-2">🏠 Home Name</label>
-          <input value="<%= editing ? home.addhome : '' %>" 
-                 type="text" name="addhome" id="homename" placeholder="e.g. Cozy Lake House"
+          <input value="<%= editing ? home.houseName : '' %>" 
+                 type="text" name="houseName" id="homename" placeholder="e.g. Cozy Lake House"
                  class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-orange-400"
                  required>
         </div>
@@ -55,8 +55,8 @@
 
         <!-- Image URL -->
         <div>
-          <label for="imageUrl" class="block text-gray-700 font-medium mb-2">🖼️ Image URL</label>
-          <input type="url" name="imageUrl" 
+          <label for="url" class="block text-gray-700 font-medium mb-2">🖼️ Image URL</label>
+          <input type="url" name="url" 
                  value="<%= editing ? home.imageUrl : '' %>" 
                  id="imageUrl" placeholder="e.g. https://example.com/image.jpg"
                  class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-orange-400"

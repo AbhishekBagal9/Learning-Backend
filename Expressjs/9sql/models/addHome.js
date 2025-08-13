@@ -1,51 +1,46 @@
 const fs = require("fs");
 const path = require("path");
 const rootDir = require("../utils/path");
+const db = require('../utils/databaseUtil')
 
-const filePath = path.join(rootDir, "data", "homes.json");
+
 module.exports = class Home {
-  constructor(addhome, price, location,rating,imageUrl) {
-    this.addhome = addhome;
+  constructor(houseName, price, location,rating,url,id) {
+    this.houseName = houseName;
     this.price = price;
     this.location = location;
     this.rating = rating;
-    this.imageUrl = imageUrl;
+    this.url = url;
+    this.id = id;
   }
-  save() {
-   Home.fetchAll((registeredHomes) => {
-       if(this.id){
-      registeredHomes = registeredHomes.map(home =>
-       this.id === home.id ? this : home
-      );
-    }
-    else{
-        this.id = Math.random().toString();
-      registeredHomes.push(this); // Add the new home to the array
-  }
-    fs.writeFile(filePath, JSON.stringify(registeredHomes), (err) => {
-      if (err) {
-        console.error("Error writing to file", err);
-      } else {
-        console.log("Data saved successfully");
-      }
-    });
-  });
-}
-    
-    
 
-  static fetchAll(callback) {
-   const filePath = path.join(rootDir, "data", "homes.json");
-   fs.readFile(filePath,(err,data) => {
-    callback(err ? [] : JSON.parse(data));
-   });
+
+
+save() {
+if (this.id) {
+      // Update existing home
+      return db.execute(
+        `UPDATE homes SET houseName=?, price=?, location=?, rating=?, url=? WHERE id=?`,
+        [this.houseName, this.price, this.location, this.rating, this.url, this.id]
+      );
+}
+else{
+return  db.execute(
+    `INSERT INTO homes(houseName, price, location, rating, url)  
+     VALUES(?,?,?,?,?)`,[this.houseName,this.price,this.location,this.rating,this.url] //Thi is called sql injection attact
+    //and previously hackers ues this to delete database suppose someone use this in the dess field so it will execute two queries and hackers
+    //will delte database
+  );
+}
+
+}
+
+static fetchAll() {
+  return db.execute('SELECT * FROM homes')
    }
 
-   static fetchById(id, callback) {
-  Home.fetchAll((homes) => {
-    const home = homes.find(h => h.id === id);
-    callback(home);
-  });
+   static fetchById(id) {
+    return db.execute('SELECT * FROM homes WHERE id=?',[id])
 }
 }
 

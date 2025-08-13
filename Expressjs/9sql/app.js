@@ -4,7 +4,9 @@ const path = require('path');
 const AddhomeRouter = require('./routes/hostRouter');
 const HomeRouter = require('./routes/storeRouter');
 const Home = require('./models/addHome');
+
  // Middleware to parse URL-encoded bodies
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));

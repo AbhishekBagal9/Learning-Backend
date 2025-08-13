@@ -1,0 +1,43 @@
+<nav class="m-2">
+  <ul class="flex gap-8 h-[60px] bg-red-500 mb-4 px-6 items-center rounded-lg shadow-md text-[18px] font-semibold text-white">
+
+    <li class="rounded px-3 py-1 <%= pageTitle === 'Airnbnb' ? 'bg-red-400' : 'hover:bg-red-600 transition' %>">
+      <a href="/" class="flex items-center gap-2">
+        <i class="fas fa-house"></i> Home
+      </a>
+    </li>
+
+    <li class="rounded px-3 py-1 <%= pageTitle === 'Favourites' ? 'bg-red-400' : 'hover:bg-red-600 transition' %>">
+      <a href="/favourites" class="flex items-center gap-2">
+        <i class="fas fa-heart"></i> Favorites
+      </a>
+    </li>
+
+    <li class="rounded px-3 py-1 <%= pageTitle === 'HomeList' ? 'bg-red-400' : 'hover:bg-red-600 transition' %>">
+      <a href="/homelist" class="flex items-center gap-2">
+        <i class="fas fa-list-ul"></i> Home List
+      </a>
+    </li>
+
+    <li class="rounded px-3 py-1 <%= pageTitle === 'AddHome' ? 'bg-red-400' : 'hover:bg-red-600 transition' %>">
+      <a href="/addhome" class="flex items-center gap-2">
+        <i class="fas fa-plus-circle"></i> Add Home
+      </a>
+    </li>
+   
+    <li class="rounded px-3 py-1 <%= pageTitle === 'HostHomeList' ? 'bg-red-400' : 'hover:bg-red-600 transition' %>">
+      <a href="/host-home-list" class="flex items-center gap-2">
+        <i class="fa-solid fa-house-user"></i>
+       Host home list
+      </a>
+    </li>
+   
+    <li class="rounded px-3 py-1 <%= pageTitle === 'Bookings' ? 'bg-red-400' : 'hover:bg-red-600 transition' %>">
+      <a href="/Bookings" class="flex items-center gap-2">
+        <i class="fas fa-calendar-alt"></i> Bookings
+      </a>
+    </li>
+  
+
+  </ul>
+</nav>

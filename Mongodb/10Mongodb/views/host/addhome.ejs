@@ -1,0 +1,78 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gradient-to-br from-orange-50 to-blue-50 min-h-screen">
+  <%- include('../partials/navbar') %>
+
+  <div class="flex justify-center items-center pt-16 px-4">
+    <div class="w-full max-w-2xl bg-white shadow-2xl rounded-3xl p-10 border border-gray-100">
+      <h1 class="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-pink-500 mb-8">
+        <%= editing ? "✏️ Edit Your Home" : "🏡 List Your Home on Airbnb" %>
+      </h1>
+
+      <form action="<%=editing ? '/edit-home': '/addhome' %>" method="POST" class="flex flex-col gap-6">
+        <% if (editing) { %>
+  <input type="hidden" name="_id" value="<%= home._id %>">
+<% } %>
+
+        <div>
+          <label for="homename" class="block text-gray-700 font-medium mb-2">🏠 Home Name</label>
+          <input value="<%= editing ? home.houseName : '' %>" 
+                 type="text" name="houseName" id="homename" placeholder="e.g. Cozy Lake House"
+                 class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                 required>
+        </div>
+
+        <!-- Price -->
+        <div>
+          <label for="price" class="block text-gray-700 font-medium mb-2">💰 Price per Night</label>
+          <input type="text" name="price" 
+                 value="<%= editing ? home.price : '' %>" 
+                 id="price" placeholder="e.g. 1500"
+                 class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                 required>
+        </div>
+
+        <!-- Location -->
+        <div>
+          <label for="location" class="block text-gray-700 font-medium mb-2">📍 Location</label>
+          <input type="text" name="location" 
+                 value="<%= editing ? home.location : '' %>" 
+                 id="location" placeholder="e.g. Goa, India"
+                 class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                 required>
+        </div>
+
+        <!-- Rating -->
+        <div>
+          <label for="rating" class="block text-gray-700 font-medium mb-2">⭐ Rating (1 to 5)</label>
+          <input type="number" name="rating" 
+                 value="<%= editing ? home.rating : '' %>" 
+                 id="rating" placeholder="e.g. 4.7"
+                 min="1" max="5" step="0.1"
+                 class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                 required>
+        </div>
+
+        <!-- Image URL -->
+        <div>
+          <label for="url" class="block text-gray-700 font-medium mb-2">🖼️ Image URL</label>
+          <input type="url" name="url" 
+                 value="<%= editing ? home.url : '' %>" 
+                 id="imageUrl" placeholder="e.g. https://example.com/image.jpg"
+                 class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                 required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center pt-4">
+          <input type="submit" value="<%= editing ? '💾 Save Changes' : '➕ Add Home' %>"
+                 class="<%= editing 
+                          ? 'bg-yellow-500 hover:bg-yellow-600' 
+                          : 'bg-orange-500 hover:bg-orange-600' %> 
+                        transition text-white px-8 py-3 rounded-xl shadow-md font-semibold text-lg cursor-pointer">
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-white text-gray-800 min-h-screen">
+  <%- include('../partials/navbar') %>
+
+  <div class="max-w-7xl mx-auto mt-16 px-4 sm:px-8 pb-16">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+        📅 Your Booked Homes
+      </h1>
+      <p class="text-gray-500 mt-2 text-lg">Here are the homes you have booked</p>
+    </div>
+
+    <% if (bookedHomes.length === 0) { %>
+      <p class="text-center text-gray-600 text-xl">You haven't booked any homes yet.</p>
+    <% } else { %>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 list-none">
+        <% bookedHomes.forEach((home) => { %>
+          <li class="flex flex-col bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden border border-gray-100">
+            <div class="h-52 w-full overflow-hidden">
+              <img src="<%= home.imageUrl %>" alt="Home image" class="w-full h-full object-cover" />
+            </div>
+
+            <div class="p-6 flex flex-col gap-3 flex-grow">
+              <h2 class="text-2xl font-bold text-indigo-600 flex items-center gap-2">
+                🏠 <%= home.addhome %>
+              </h2>
+
+              <p class="text-gray-700 text-base">
+                💰 <span class="font-medium">Price:</span> ₹<%= home.price %>
+              </p>
+
+              <p class="text-gray-700 text-base">
+                📍 <span class="font-medium">Location:</span> <%= home.location %>
+              </p>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </div>
+
+</body>
+</html>
